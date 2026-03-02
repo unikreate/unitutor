@@ -236,12 +236,11 @@ export default function App() {
         return;
       }
 
-      // Check if we already generated audio for this message (caching simple objects for prototype)
+      // We use optional chaining (?) here to avoid crashes if the message hasn't populated in state yet
       const message = messages.find(m => m.id === messageId);
-      let audioUrl = message.audioUrl;
+      let audioUrl = message?.audioUrl;
 
       if (!audioUrl) {
-        // Show loading state for audio somehow? Just wait for now.
         setErrorMsg('');
         audioUrl = await generateSpeech(text);
         
@@ -497,3 +496,4 @@ export default function App() {
     </div>
   );
 }
+                
